@@ -386,6 +386,7 @@
 							Ned=new Character("Ned",3),
 							Barkeep=new Character("Barkeep",3),
 							Dealer=new Character("Dealer",4),
+							Dog=new Character("Dog",4),
 							Andrews=new Character("Andrews",3),
 							Saloon=new StageItem("Saloon",4),
 							Doors=new StageItem("Doors",5),
@@ -486,6 +487,7 @@
 								if(pauses[1]<5){
 										introOutro.volume=1;
 										introOutro.play();
+										keyboard.style.display="none";
 										pauses[1]++;
 									}else if(pauses[1]<25){
 										fgimg.style.visibility="hidden";
@@ -598,6 +600,7 @@
 
 							case 2:
 									if(pauses[2]<25){
+										keyboard.style.display="none";
 										fgimg.src=Dealer.avatar;
 										Dealer.setScale();
 										Dealer.setPos("0px","-70px");
@@ -714,7 +717,7 @@
 										pauses[2]++;	
 									}else if(pauses[2]<520){
 										fgimg.src=Andrews.avatar;
-										Amos.speak("bubble-left","Alright, boys. Money on the table, no go to the pockets.");
+										Andrews.speak("bubble-left","Alright, boys. Money on the table, no go to the pockets.");
 										pauses[2]++;	
 									}else if(pauses[2]<545){
 										chat.innerHTML="[Shuffling]";
@@ -765,6 +768,7 @@
 									break;
 							case 3:
 									if(pauses[3]<25){
+										keyboard.style.display="none";
 										fgimg.src=Andrews.avatar;
 										Andrews.setScale();
 										Andrews.setPos("15px","-50px;");
@@ -783,43 +787,49 @@
 										Andrews.speak("bubble-left",`You can put down the <span style="color:${color};">${val}${suit}</span>! This game's all mine.`);
 										chat.innerHTML="[Andrews]";
 										pauses[3]++;
-									}else if(pauses[3]<90){
+									}else if(pauses[3]<120){
+										Dog.setScale();
+										Dog.setPos("15px","-70px");
+										fgimg.src=Dog.avatar;
+										Dog.speak("bubble-left","Don't worry kid, you'll get 'em next time.");
 										chat.innerHTML="";
 										pauses[3]++;
-									}else if(pauses[3]<105){
+									}else if(pauses[3]<125){
 										Table.img.src=(temphand.length==4)?table4.src:table5.src;
 										bgimg.src=Table.img.src;
-										chat.innerHTML="[Isaac whispers] Boss... boss..";
 										pauses[3]++;
-									}else if(pauses[3]<140){
+									}else if(pauses[3]<150){
 										fgtalk.style.visibility="hidden";
 										fgimg.style.visibility="hidden";
 										bgimg.style.visibility="visible";
+										chat.innerHTML="[Isaac] Boss... boss..";
+										pauses[3]++;
+									}else if(pauses[3]<190){
 										chat.style.textAlign="left";
 										Ned.speak("console","Andrews, man. I thought I had you on this one.");
 										pauses[3]++;
-									}else if(pauses[3]<145){
+									}else if(pauses[3]<195){
 										chat.innerHTML="";
 										pauses[3]++;
-									}else if(pauses[3]<185){
+									}else if(pauses[3]<235){
 										Andrews.speak("console","One second folks. Isaac, what're you saying?");
 										pauses[3]++;
-									}else if(pauses[3]<190){
+									}else if(pauses[3]<240){
 										chat.innerHTML="";
 										pauses[3]++;
-									}else if(pauses[3]<225){		
+									}else if(pauses[3]<280){		
 										chat.innerHTML="[Isaac] Don't trouble 'bout no two han's boss. get yo' own han'.";
 										pauses[3]++;
-									}else if(pauses[3]<230){
+									}else if(pauses[3]<285){
 										chat.innerHTML="";
 										pauses[3]++;
-									}else if(pauses[3]<265){
+									}else if(pauses[3]<325){
 										chat.innerHTML="[Isaac] De suckah, he'll get a han' all right, suah!";
 										pauses[3]++;
-									}else if(pauses[3]<270){
+									}else if(pauses[3]<330){
 										chat.innerHTML="";
 										pauses[3]++;
-									}else if(pauses[3]<305){
+									}else if(pauses[3]<365){
 										bgimg.style.visibility="hidden";
 										fgtalk.style.visibility="visible";
 										fgimg.style.visibility="visible";
@@ -830,10 +840,10 @@
 										chat.innerHTML="[Game Continues]";
 										riff.play();
 										pauses[3]++;
-									}else if(pauses[3]<340){
+									}else if(pauses[3]<395){
 										Andrews.speak("bubble-left","You guys know the drill.");
 										pauses[3]++;
-									}else if(pauses[3]<380){
+									}else if(pauses[3]<430){
 										riff.pause();
 										deal.play();
 										Andrews.speak("bubble-left","Ante up fellas.");
@@ -848,6 +858,7 @@
 									break;
 							case 4:
 									if(pauses[4]<35){
+										keyboard.style.display="none";
 										fgimg.src=Andrews.avatar;
 										Andrews.setScale();
 										Andrews.setPos("15px","-50px;");
@@ -878,17 +889,17 @@
 										fgimg.src=Isabel.avatar;	
 										Isabel.speak("bubble-right","I only go home with winners, kid.");
 										pauses[4]++;
-									}else if(pauses[4]<165){
+									}else if(pauses[4]<175){
 										fgimg.src=Amos.avatar;
 										Amos.setPos("0px","-75px");
 										Amos.setScale();
-										Amos.speak("bubble-left","Hey, hold on! Andrews, what about the lucky card rule?");
+										Amos.speak("bubble-left",'Hey, hold on! Andrews, what about the "lucky card" rule?');
 										chat.innerHTML="[Lucky Card]";
 										pauses[4]++;
-									}else if(pauses[4]<195){
-										Amos.speak("bubble-left","Check the sign!");
+									}else if(pauses[4]<205){
+										Amos.speak("bubble-left","<br>Check the sign!<br><br>");
 										pauses[4]++;
-									}else if(pauses[4]<235){
+									}else if(pauses[4]<245){
 										fgimg.style.visibility="hidden";
 										fgtalk.style.visibility="hidden";
 										bgimg.style.visibility="visible";
@@ -901,7 +912,7 @@
 										Sign.setPos("250px","115px");
 										bgimg.src=Sign.img.src;
 										pauses[4]++;
-									}else if(pauses[4]<265){
+									}else if(pauses[4]<275){
 										cardOnSign.style.display="none";
 										bgimg.style.visibility="hidden";
 										fgimg.style.visibility="visible";
@@ -909,9 +920,9 @@
 										Andrews.setScale();
 										Andrews.setPos("15px","-50px;");
 										fgtalk.style.visibility="visible";
-										Andrews.speak("bubble-left","Argh!!! I need a moment! ...be back in five!");
+										Andrews.speak("bubble-left","Arggggh!!! I need a moment! ...be back in five!");
 										pauses[4]++;
-									}else if(pauses[4]<270){
+									}else if(pauses[4]<280){
 										fgtalk.style.visibility="hidden";
 										fgimg.style.visibility="hidden";
 										chat.innerHTML="";
@@ -922,15 +933,141 @@
 										bgimg.src=Table.img.src;
 										bgimg.style.visibility="visible";
 										pauses[4]++;
-									}else if(pauses[4]<290){
-										Ned.speak("console","I don't remember that being there...");
+									}else if(pauses[4]<310){
+										Ned.speak("console","I don't remember that being on there...");
 										pauses[4]++;
-									}else if(pauses[4]<320){
+									}else if(pauses[4]<315){
+										chat.innerHTML="";
+										pauses[4]++;
+									}else if(pauses[4]<330){
 										Amos.speak("console","Shhhh....");
 										pauses[4]++;
-									}else if(pauses[4]<360){
-										Amos.speak("console","It's the way it should be! I wrote it in when he wasn't looking.");
+									}else if(pauses[4]<335){
+										chat.innerHTML="";
 										pauses[4]++;
+									}else if(pauses[4]<375){
+										Amos.speak("console","I wrote it in when he wasn't looking.");
+										fgimg.src=Andrews.avatar;
+										pauses[4]++;
+									}else if(pauses[4]<405){
+										bgimg.style.visibility="hidden";
+										fgimg.style.visibility="visible";
+										fgtalk.style.visibility="visible";
+										Andrews.speak("bubble-left","Back! Alright. Boys, money on the table, no go to the pockets.");
+										riff.play();
+										chat.innerHTML="";
+										pauses[4]++;	
+									}else if(pauses[4]<425){
+										chat.innerHTML="[Shuffling]";
+										pauses[4]++;	
+									}else if(pauses[4]<475){
+										bgimg.style.visibility="visible";
+										fgimg.style.visibility="hidden";
+										fgtalk.style.visibility="hidden";
+										riff.loop=true;
+										Shuffle.img.src=riffle.src;
+										Shuffle.setScale();
+										Shuffle.setDimensions("80px","100px");
+										Shuffle.setPos("280px","135px");
+										bgimg.src=Shuffle.img.src;	
+										pauses[4]++;
+									}else if(pauses[4]<480){
+										bgimg.style.visibility="hidden";
+										pauses[4]++;
+									}else if(pauses[4]<520){
+										bgimg.style.visibility="visible";
+										Shuffle.setDimensions("80px","100px");
+										Shuffle.img.src=spring.src;
+										bgimg.src=Shuffle.img.src;
+										pauses[4]++;
+									}else if(pauses[4]<525){
+										chat.innerHTML="";
+										pauses[4]++;
+									}else if(pauses[4]<530){
+										Table.setDimensions("260px","110px");
+										Table.setPos("170px","130px");
+										Table.setScale();
+										bgimg.src=emptyTable.src;
+										riff.pause();
+										deal.play();		
+										pauses[4]++;
+									}else if(pauses[4]<570){
+										Andrews.speak("console","Ante Up.");
+										fgimg.src=Chips.img.src;
+										fgimg.style.visibility="visible";
+										cards.innerHTML="";
+										pauses[4]++;
+									}else{
+										pub.pause();
+										pauses.push(0);
+										promptUser();
+									}
+									break;
+							case 5:
+									if(pauses[5]<35){
+										keyboard.style.display="none";
+										fgimg.src=Andrews.avatar;
+										Andrews.setScale();
+										Andrews.setPos("15px","-50px;");
+										chat.innerHTML="";
+										pauses[5]++;
+									}else if(pauses[5]<95){
+										let color=isRed(holecard)?"red":"black",
+												suit=getSuitSymbol(getSuit(holecard)),
+												val=holecard.slice(0,-1);
+										hideMessage();
+										fgimg.style.visibility="visible";
+										fgtalk.style.visibility="visible";
+										bgimg.style.visibility="hidden";
+										pub.volume=0.25;
+										pub.loop=true;
+										pub.play();
+										Andrews.speak("bubble-left",`Betcha got the <span style="color:${color};">${val}${suit}</span>, kid.`);
+										chat.innerHTML="[Andrews]";
+										riff.play();
+										riff.loop=true;
+										pauses[5]++;
+									}else if(pauses[5]<100){
+										chat.innerHTML="";
+										pauses[5]++;
+									}else if(pauses[5]<130){
+										fgimg.style.visibility="hidden";
+										fgtalk.style.visibility="hidden";
+										bgimg.style.visibility="visible";
+										Shuffle.setScale();
+										Shuffle.setDimensions("80px","100px");
+										Shuffle.setPos("280px","135px");
+										Shuffle.img.src=riffle.src;
+										bgimg.src=Shuffle.img.src;	
+										chat.innerHTML="[Shuffling]";
+										pauses[5]++;	
+									}else if(pauses[5]<145){
+										Table.setDimensions("260px","110px");
+										Table.setPos("170px","130px");
+										Table.setScale();
+										bgimg.src=emptyTable.src;
+										chat.innerHTML="";
+										riff.pause();
+										deal.play();	
+										pauses[5]++;
+									}else if(pauses[5]<220){
+										Ned.speak("console","Say, you're dealing off the bottom!");	
+										cards.innerHTML="";
+										pauses[5]++;
+									}else if(pauses[5]<225){
+										chat.innerHTML="";
+										pauses[5]++;
+									}else if(pauses[5]<265){
+										Andrews.speak("console","So what! It's my deal, isn't it?");
+										pauses[5]++;
+									}else if(pauses[5]<270){
+										chat.innerHTML="";
+										pauses[5]++;
+									}else if(pauses[5]<300){
+										Andrews.speak("console","Alright, boys. Ante up.");
+										fgimg.src=Chips.img.src;
+										fgimg.style.visibility="visible";
+										pauses[5]++;
 									}else{
 										pub.pause();
 										pauses.push(0);
@@ -1295,11 +1432,11 @@
 					display:none;
 					color:lightyellow;
 					font-size:40px;
-					font-family: "Montserrat";
+					font-family:"Comic Sans MS", "Comic Sans", "Montserrat", cursive;
 					position: absolute;
-					top: 80%;
+					top: 82%;
 					left: 50%;
-					transform: translate( -50%, -80% );
+					transform: translate( -50%, -82% );
 					text-align: center;
 					opacity:0.7;
 				}
@@ -1503,7 +1640,7 @@
 							<button class="keys" style="font-size:40px;width:550px;position:relative;" onclick="showdown();">SHOWDOWN</button>
 							<br><br>
 			</div>
-			<button id="story" style="width:500px;background-color:black;color:green;font-size:40px;">Story: On</button>
+			<button id="story" style="width:500px;background-color:black;color:brown;font-size:40px;">Turn Off Story</button>
 		</center>
 	 <br><br>
 	</div>
