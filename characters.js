@@ -16,10 +16,10 @@
 						this.style_zIndex="0";
 						this.style_webkitTransform=`scale(${this.scale})`; /* Saf3.1+, Chrome */
 						this.style_mozTransform=`scale(${this.scale})`; /* FF3.5+ */
-     		 		this.style_msTransform=`scale(${this.scale})`; /* IE9 */
-      			this.style_oTransform=`scale(${this.scale})`; /* Opera 10.5+ */
-          	this.style_transform=`scale(${this.scale})`;
-          	this.style_filter=`progid:DXImageTransform.Microsoft.Matrix(M11=0.9999619230641713, M12=-0.008726535498373935, M21=0.008726535498373935, M22=0.9999619230641713,SizingMethod='auto expand')`;
+						this.style_msTransform=`scale(${this.scale})`; /* IE9 */
+						this.style_oTransform=`scale(${this.scale})`; /* Opera 10.5+ */
+						this.style_transform=`scale(${this.scale})`;
+						this.style_filter=`progid:DXImageTransform.Microsoft.Matrix(M11=0.9999619230641713, M12=-0.008726535498373935, M21=0.008726535498373935, M22=0.9999619230641713,SizingMethod='auto expand')`;
 					}
 					flip(){
 						const bgimg=document.getElementById("bgimg");
@@ -82,7 +82,7 @@
 													return `${message}`;
 													break;
 							case 'console':
-													let text=`[${this.name} says] ${message}`;
+													let text=`[${this.name}] ${message}`;
 													chat.innerHTML=text;
 													return text;
 													break;
