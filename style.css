@@ -1,0 +1,274 @@
+
+			/*
+				Title Text Effect, thanks to: http://codepen.io/Moslim/
+				Talk/Text Bubble Effect, thanks to: https://codepen.io/run-time/pen/VNRBJd 
+				Background Opacity Effect, thanks to: https://www.digitalocean.com/community/tutorials/how-to-change-a-css-background-images-opacity
+				Backgroun Wood Grain Image, thanks to: pixelbuddha.net
+				Scale image, thanks to: https://stackoverflow.com/questions/8397049/css-image-resize-percentage-of-itself
+				Sound effects, thanks to: https://mixkit.co/free-sound-effects/game/ , https://pixabay.com/sound-effects/ , https://bigsoundbank.com/
+			 */
+		* { touch-action: manipulation; }
+
+				body {
+					background:black;
+					background-image: linear-gradient(black, silver); /*Gradient*/
+					background-repeat: no-repeat;
+					color:lightyellow;
+					font-size:10px;
+				}
+
+				/*Title Effect*/
+				.title {
+					text-align: center;
+					color: lightgray;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					height: 15vh;
+					letter-spacing: 1px;
+					line-height:1;
+					/*Font-Border */
+					 -webkit-text-stroke: 1px silver; /* width and color */
+					 font-family: sans;
+					/*End Font-Border*/
+				}
+
+				h1 {
+					background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
+					background-size: cover;
+					color: transparent;
+					-moz-background-clip: text;
+					-webkit-background-clip: text;
+					text-transform: uppercase;
+					font-size: 100px;
+					margin: 10px 0;
+				}
+				/* styling my button */
+
+				.white-mode {
+					text-decoration: none;
+					padding: 7px 10px;
+					background-color: #122;
+					border-radius: 3px;
+					color: #FFF;
+					transition: .35s ease-in-out;
+					position: absolute;
+					left: 15px;
+					bottom: 15px;
+					font-family: "Montserrat";
+				}
+
+				.white-mode:hover {
+					background-color: #FFF;
+					color: #122;
+				}
+				/* End Title Effect */	
+
+				h2 {
+						font-size:45px;
+						color:silver;
+						-webkit-text-stroke: 2px black; /* width and color */
+				}
+				
+				#monitor {
+					width:815px;
+					height:610px;
+					border:20px inset gray;
+				}
+				
+				#storyboard-outer {
+					width:800px;
+					height:590px;
+					background-color:black;
+					border:8px solid green;
+				}
+
+				#screen {
+					width:800px;
+					font-size:30px;
+					font-family:Courier, monospace; 
+				}
+
+				#chat {
+					text-align:left;
+					padding:10px;
+					border-top:2px solid green;
+					border-bottom:2px solid green;
+					height:70px;
+					color:#49F55B;
+					font-weight:bold;
+				}
+
+				#cards {
+					padding:10px;
+					background-color:black;
+					color:#49F55B;
+					font-size:65px;
+					text-align:center;
+					position:relative;
+					/*Vertical Align Text*/
+					display: table-cell;
+					vertical-align: middle;
+					/*End Vertical Align Text*/
+				}
+
+				#play {
+					width:400px;
+					font-size:60px;
+					background-color:green;
+					color:black;
+					border:2px outset silver;
+				}
+
+				#keyboard {
+					width:900px;
+					display:none;
+				}
+
+				#story-container {
+					width:799px;
+					position: relative;
+    			display: inline-block;
+				}
+
+				#itwaswritten {
+					display:none;
+					color:lightyellow;
+					font-size:40px;
+					font-family:"Comic Sans MS", "Comic Sans", "Montserrat", cursive;
+					position: absolute;
+					top: 82%;
+					left: 50%;
+					transform: translate( -50%, -82% );
+					text-align: center;
+					opacity:0.7;
+				}
+
+				.keys {
+					width: 160px;
+					height:80px;
+					background-color:#B3B3B3;
+					color:black;
+					font-size:50px;
+					font-weight:bold;
+					border:5px outset silver;
+					box-shadow: 15px 15px 30px 10px black;
+				}
+
+				.keys-suits {
+					border:5px outset silver;
+					background-color:#C4C4C4;
+					color:black;
+					/*Vertical Align Text on Button*/
+					display: table-cell;
+					vertical-align: middle;
+					/*End Vertical Align Text*/
+					width:110px;
+					font-size:60px;
+					box-shadow: 15px 15px 30px 10px black;
+				}
+
+				.character {
+					/*scale image*/
+					-webkit-transform: scale(2); /* Saf3.1+, Chrome */
+					-moz-transform: scale(2); /* FF3.5+ */
+					-ms-transform: scale(2); /* IE9 */
+					-o-transform: scale(2); /* Opera 10.5+ */
+					transform: scale(2);
+						 /* IE6–IE9 */
+					filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.9999619230641713, M12=-0.008726535498373935, M21=0.008726535498373935, M22=0.9999619230641713,SizingMethod='auto expand');
+					/*End Scale Image*/
+					z-index:2;
+				}
+
+				.bgscene {
+					z-index:0;
+					text-align:left;
+					/*scale image*/
+					-webkit-transform: scale(5); /* Saf3.1+, Chrome */
+					-moz-transform: scale(5); /* FF3.5+ */
+					-ms-transform: scale(5); /* IE9 */
+					-o-transform: scale(5); /* Opera 10.5+ */
+					transform: scale(5);
+						 /* IE6–IE9 */
+					filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.9999619230641713, M12=-0.008726535498373935, M21=0.008726535498373935, M22=0.9999619230641713,SizingMethod='auto expand');
+					/*End Scale Image*/	
+				}
+
+				/*Talk Bubble*/
+
+				.bubble {
+					top:-40px;
+					position: relative;
+					font-family: Courier, monospace;
+					font-size: 30px;
+					font-weight:bold;
+					line-height: 30px;
+					width: 400px;
+					background: #fff;
+					border-radius: 40px;
+					padding: 25px;
+					text-align: center;
+					color: #000;
+					z-index:1;
+				}
+
+				.bubble-bottom-left:before {
+					content: "";
+					width: 0px;
+					height: 0px;
+					position: absolute;
+					border-left: 24px solid #fff;
+					border-right: 12px solid transparent;
+					border-top: 12px solid #fff;
+					border-bottom: 20px solid transparent;
+					left: 32px;
+					bottom: -24px;
+				}
+				
+				.bubble-bottom-right:after {
+					content: "";
+					width: 0px;
+					height: 0px;
+					position: absolute;
+					border-right: 24px solid #fff;
+					border-left: 12px solid transparent;
+					border-top: 12px solid #fff;
+					border-bottom: 20px solid transparent;
+					right: 32px;
+					bottom: -24px;
+				}
+
+				/*End Talk Bubble*/	
+
+				/*Background-Image Opacity*/
+				.wrap {
+					overflow: hidden;
+					position: relative;
+				}
+
+				.bg {
+					opacity: 0.2;
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: auto;
+					/*scale image*/
+					-webkit-transform: scale(1); /* Saf3.1+, Chrome */
+					-moz-transform: scale(1); /* FF3.5+ */
+					-ms-transform: scale(1); /* IE9 */
+					-o-transform: scale(1); /* Opera 10.5+ */
+					transform: scale(1);
+						 /* IE6–IE9 */
+					filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.9999619230641713, M12=-0.008726535498373935, M21=0.008726535498373935, M22=0.9999619230641713,SizingMethod='auto expand');
+					/*End Scale Image*/
+				}
+
+				.content {
+					position: relative;
+				}
+
+				/*End Background-Image Opacity*/
+								
