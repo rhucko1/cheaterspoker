@@ -1,6 +1,20 @@
 class Story {
 	constructor(){
 		this.pauses=[0,0]; //counters for scenes [0] is reserved for final scene, will push(0) at the end of each scene
+		this.patters=[
+							`You can put down the`,
+							`Bet you're holding the`,
+							`I reckon, you must have the`,
+						];
+	}
+	getPatter=()=>{
+		let color=isRed(holecard)?"red":"black",
+						suit=getSuitSymbol(getSuit(holecard)),
+						val=holecard.slice(0,-1),
+						string=`${this.patters[0]} <span style="color:${color};">${val}${suit}</span>`; //gets shifted at end of scene
+		string=(mode=="high" && temphand.length==4)?`Hey! Quit holding out on me! I know you got the <span style="color:${color};">${val}${suit}</span>!`:string;
+		string=(isFourOfAKind())?`4 of a kind's a good hand, but this is Liar's Poker. Bet you got the <span style="color:${color};">${val}${suit}</span>!`:string;
+		return string;
 	}
 	////////////// SCENE 1 //////////////
 	scene1(){
@@ -349,9 +363,7 @@ class Story {
 				this.pauses[3]++;
 				break;
 			case (this.pauses[3]<85):
-				let color=isRed(holecard)?"red":"black",
-						suit=getSuitSymbol(getSuit(holecard)),
-						val=holecard.slice(0,-1);
+				let patter=this.getPatter();	
 				hideMessage();
 				pub.volume=0.25;
 				pub.loop=true;
@@ -359,7 +371,7 @@ class Story {
 				bgimg.style.visibility="hidden";
 				fgimg.style.visibility="visible";
 				fgtalk.style.visibility="visible";
-				Andrews.speak("bubble-left",`You can put down the <span style="color:${color};">${val}${suit}</span>! This game's all mine.`);
+				Andrews.speak("bubble-left",patter);
 				chat.innerHTML="[Andrews]";
 				this.pauses[3]++;
 				break;
@@ -441,6 +453,7 @@ class Story {
 				this.pauses[3]++;
 				break;
 			default:
+				this.patters.shift;
 				pub.pause();
 				this.pauses.push(0);
 				promptUser();
@@ -449,30 +462,35 @@ class Story {
 	////////////// SCENE 4 //////////////
 	scene4(){
 		switch(true){	
-			case (this.pauses[4]<35):
+			case (this.pauses[4]<15):
+				hideMessage();
+				fgimg.style.visibility="hidden";
+				fgtalk.style.visibility="hidden";
+				bgimg.style.visibility="hidden";
 				keyboard.style.display="none";
+				bgimg.src=pokerStandOff.src;
 				fgimg.src=Andrews.avatar;
 				Andrews.setScale();
 				Andrews.setPos("15px","-50px;");
-				Andrews.speak("console","Hey, quit fussing with those cards!");
 				this.pauses[4]++;
 				break;
 			case (this.pauses[4]<40):
+				bgimg.style.visibility="visible";
+				this.pauses[4]++;
+				break;
+			case (this.pauses[4]<45):
 				chat.innerHTML="";
 				this.pauses[4]++;
 				break;
 			case (this.pauses[4]<90):
-				let color=isRed(holecard)?"red":"black",
-						suit=getSuitSymbol(getSuit(holecard)),
-						val=holecard.slice(0,-1);
-				hideMessage();
+				let patter=this.getPatter();	
 				fgimg.style.visibility="visible";
 				fgtalk.style.visibility="visible";
 				bgimg.style.visibility="hidden";
 				pub.volume=0.25;
 				pub.loop=true;
 				pub.play();
-				Andrews.speak("bubble-left",`...and I bet you're holding the <span style="color:${color};">${val}${suit}</span>`);
+				Andrews.speak("bubble-left",patter);
 				chat.innerHTML="[Andrews]";
 				this.pauses[4]++;
 				break;
@@ -487,89 +505,18 @@ class Story {
 				this.pauses[4]++;
 				break;
 			case (this.pauses[4]<175):
-				fgimg.src=Amos.avatar;
-				Amos.setPos("0px","-75px");
-				Amos.setScale();
-				Amos.speak("bubble-left",'Hey, hold on! Andrews, what about the "lucky card" rule?');
-				chat.innerHTML="[Lucky Card]";
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<205):
-				Amos.speak("bubble-left","<br>Check the sign!<br><br>");
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<245):
-				fgimg.style.visibility="hidden";
-				fgtalk.style.visibility="hidden";
-				bgimg.style.visibility="visible";
-				cardOnSign.innerHTML=`${holecard}`;
-				bgimg.style.zIndex="0";
-				cardOnSign.style.zIndex="4";
-				cardOnSign.style.display="block";
-				Sign.setScale();
-				Sign.setDimensions("100px","110px");
-				Sign.setPos("250px","115px");
-				bgimg.src=Sign.img.src;
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<275):
-				cardOnSign.style.display="none";
-				bgimg.style.visibility="hidden";
-				fgimg.style.visibility="visible";
-				fgimg.src=Andrews.avatar;
-				Andrews.setScale();
 				Andrews.setPos("15px","-50px;");
-				fgtalk.style.visibility="visible";
-				Andrews.speak("bubble-left","Arggggh!!! I need a moment! ...be back in five!");
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<280):
-				fgtalk.style.visibility="hidden";
-				fgimg.style.visibility="hidden";
-				chat.innerHTML="";
-				Table.setDimensions("260px","110px");
-				Table.setPos("170px","130px");
-				Table.setScale();
-				Table.img.src=(temphand.length==4)?table4.src:table5.src;
-				bgimg.src=Table.img.src;
-				bgimg.style.visibility="visible";
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<310):
-				Ned.speak("console","I don't remember that being on there...");
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<315):
-				chat.innerHTML="";
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<330):
-				Amos.speak("console","Shhhh....");
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<335):
-				chat.innerHTML="";
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<375):
-				Amos.speak("console","I wrote it in when he wasn't looking.");
 				fgimg.src=Andrews.avatar;
-				this.pauses[4]++;
-				break;
-			case (this.pauses[4]<405):
-				bgimg.style.visibility="hidden";
-				fgimg.style.visibility="visible";
-				fgtalk.style.visibility="visible";
-				Andrews.speak("bubble-left","Back! Alright. Boys, money on the table, no go to the pockets.");
+				Andrews.speak("bubble-left","Alright. Boys, money on the table, no go to the pockets.");
 				riff.play();
 				chat.innerHTML="";
 				this.pauses[4]++;	
 				break;
-			case (this.pauses[4]<425):
+			case (this.pauses[4]<195):
 				chat.innerHTML="[Shuffling]";
 				this.pauses[4]++;	
 				break;
-			case (this.pauses[4]<475):
+			case (this.pauses[4]<235):
 				bgimg.style.visibility="visible";
 				fgimg.style.visibility="hidden";
 				fgtalk.style.visibility="hidden";
@@ -581,22 +528,22 @@ class Story {
 				bgimg.src=Shuffle.img.src;	
 				this.pauses[4]++;
 				break;
-			case (this.pauses[4]<480):
+			case (this.pauses[4]<240):
 				bgimg.style.visibility="hidden";
 				this.pauses[4]++;
 				break;
-			case (this.pauses[4]<520):
+			case (this.pauses[4]<280):
 				bgimg.style.visibility="visible";
 				Shuffle.setDimensions("80px","100px");
 				Shuffle.img.src=spring.src;
 				bgimg.src=Shuffle.img.src;
 				this.pauses[4]++;
 				break;
-			case (this.pauses[4]<525):
+			case (this.pauses[4]<285):
 				chat.innerHTML="";
 				this.pauses[4]++;
 				break;
-			case (this.pauses[4]<530):
+			case (this.pauses[4]<290):
 				Table.setDimensions("260px","110px");
 				Table.setPos("170px","130px");
 				Table.setScale();
@@ -605,7 +552,7 @@ class Story {
 				deal.play();		
 				this.pauses[4]++;
 				break;
-			case (this.pauses[4]<570):
+			case (this.pauses[4]<330):
 				Andrews.speak("console","Ante Up.");
 				fgimg.src=Chips.img.src;
 				fgimg.style.visibility="visible";
@@ -613,6 +560,7 @@ class Story {
 				this.pauses[4]++;
 				break;
 			default:
+				this.patters.shift;
 				pub.pause();
 				this.pauses.push(0);
 				promptUser();
@@ -630,9 +578,7 @@ class Story {
 				this.pauses[5]++;
 				break;
 			case (this.pauses[5]<95):
-				let color=isRed(holecard)?"red":"black",
-						suit=getSuitSymbol(getSuit(holecard)),
-						val=holecard.slice(0,-1);
+				let patter=this.getPatter();	
 				hideMessage();
 				fgimg.style.visibility="visible";
 				fgtalk.style.visibility="visible";
@@ -640,7 +586,7 @@ class Story {
 				pub.volume=0.25;
 				pub.loop=true;
 				pub.play();
-				Andrews.speak("bubble-left",`Betcha got the <span style="color:${color};">${val}${suit}</span>, kid.`);
+				Andrews.speak("bubble-left",patter);
 				chat.innerHTML="[Andrews]";
 				riff.play();
 				riff.loop=true;
@@ -696,6 +642,7 @@ class Story {
 				this.pauses[5]++;
 				break;
 			default:
+				this.patters.shift;
 				pub.pause();
 				this.pauses.push(0);
 				promptUser();
@@ -715,8 +662,8 @@ class Story {
 				container.style.backgroundColor="white";
 				bgimg.style.height="110px";
 				bgimg.style.width="90px";
-				bgimg.src=gunOut.src; //presetting image for next
-				Andrews.speak("console","Hey! Whatcha doing with them cards?");
+				bgimg.src=gunOut.src;
+				Andrews.speak("console","Hey! You didn't take those off the top!");
 				suspense.play();
 				chat.style.textAlign="left";
 				this.pauses[0]++;
@@ -726,33 +673,102 @@ class Story {
 				this.pauses[0]++;
 				break;
 			case (this.pauses[0]<115):
-				bgimg.style.visibility="visible"; //show preset image
+				bgimg.style.visibility="visible";
 				heartbeat.play();
-				Andrews.speak("console",`You got that ${holecard} from your sleeve! Now, I'mma put some lead in you!`);
+				Andrews.speak("console",`Now, I'mma put some lead in you!`);
 				this.pauses[0]++;
 				break;
 			case (this.pauses[0]<120):
 				chat.innerHTML="";
+				fgimg.src=Ned.avatar;
+				Ned.setPos("0px","-120px");
+				Ned.setScale();
 				this.pauses[0]++;
 				break;
 			case (this.pauses[0]<165):
-				chat.innerHTML="[Isaac] He did boss, he did! I seens it alright!";
+				chat.innerHTML="[Isaac] He cheated boss, he cheated. I seens it alright!";
 				this.pauses[0]++;
 				break;
-			case (this.pauses[0]<170):
+			case (this.pauses[0]<195):
+				bgimg.style.visibility="hidden";
+				fgimg.style.visibility="visible";
+				fgtalk.style.visibility="visible";
+				container.style.backgroundColor="black";
+				Ned.speak("bubble-left",'Hey, hold on! Andrews, what about the "lucky card" rule?');
+				chat.style.textAlign="center";
+				chat.innerHTML="[Lucky Card]";
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<225):
+				Ned.speak("bubble-left","<br>Check the sign!<br><br>");
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<275):
+				fgimg.style.visibility="hidden";
+				fgtalk.style.visibility="hidden";
+				bgimg.style.visibility="visible";
+				cardOnSign.innerHTML=`${holecard}`;
+				bgimg.style.zIndex="0";
+				cardOnSign.style.zIndex="4";
+				cardOnSign.style.display="block";
+				Sign.setScale();
+				Sign.setDimensions("100px","110px");
+				Sign.setPos("250px","115px");
+				bgimg.src=Sign.img.src;
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<280):
 				chat.innerHTML="";
 				this.pauses[0]++;
 				break;
-			case (this.pauses[0]<250):
+			case (this.pauses[0]<320):
+				cardOnSign.style.display="none";
+				bgimg.style.height="110px";
+				bgimg.style.width="90px";
+				bgimg.src=gunOut.src;
+				container.style.backgroundColor="white";
+				Andrews.speak("console","Arggggh!!! I'll have to honor that!");
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<325):
+				chat.innerHTML="";
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<365):
+				Andrews.speak("console","Now, there's only one way to deal with this...");
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<370):
 				bgimg.style.visibility="hidden";
+				chat.innerHTML="";
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<390):	
+				bang.play();
+				container.style.backgroundColor="orange";
+				cardOnSign.style.fontSize="100px";
+				cardOnSign.style.color="yellow";
+				cardOnSign.style.top="50%";
+				cardOnSign.style.transform="translate( -50%, -50% )";
+				cardOnSign.innerHTML="BANG!"; //using cardOnSign for display text
+				cardOnSign.style.display="block";
+				chat.innerHTML="[Shoots Ned]";
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<425):
+				cardOnSign.style.display="none";
 				container.style.backgroundColor="black";
+				this.pauses[0]++;
+				break;
+			case (this.pauses[0]<505):
+				bgimg.style.visibility="hidden";
 				introOutro.play();	
-				chat.style.textAlign="center";
 				chat.innerHTML="[Game Over]";
 				cards.innerHTML="";
 				this.pauses[0]++;
 				break;
 			default:
+				scene=9999;
 				promptUser();
 		}
 	}

@@ -336,3 +336,20 @@
 					return suits[i].icon;
 		}
 
+		const isFourOfAKind=()=>{
+			//assumes temphand is set
+			//check if 4 values are the same
+			//used to check for kings but can be any four of a kind
+			let tmp=[];
+			for(let v of temphand)
+				tmp.push(getValue(v));
+
+			if([...new Set(tmp)].length==1 && temphand.length==4) //4 of the same in 4 card coding
+				return true;
+
+			if([...new Set(tmp)].length==2 && temphand.length==5) //4 of the same in 5 card coding
+				return true;
+
+			return false;
+		}
+

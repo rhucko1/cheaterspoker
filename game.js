@@ -57,6 +57,7 @@ const init=()=>{
 			drinkPour=new Audio("./sounds/drink.mp3"),
 			pub=new Audio("./sounds/pub.mp3"),
 			overhand=new Audio("./sounds/overhand.mp3"),
+			bang=new Audio("./sounds/bang.mp3"),
 			riff=new Audio("./sounds/riffle.mp3"),
 			deal=new Audio("./sounds/deal.mp3"),
 			drumSound=new Audio("./sounds/drums.wav");
@@ -68,8 +69,6 @@ const init=()=>{
 				emptyTable.src="images/Table-empty.png";
 			drink=new Image();
 				drink.src="images/Drink.png";
-			wanted=new Image();
-				wanted.src="images/Wanted.png";
 			riffle=new Image();
 				riffle.src="images/Riffle.png";
 			spring=new Image();
@@ -260,7 +259,7 @@ const forceSet=(x)=>{
 }
 
 const updateCards=(val,type)=>{
-	//val is number of letter representation
+	//val is number or letter representation
 	//type: (ex. suit, card, del)
 	if(cards.innerHTML.slice(-1)=="_") //check for display cursor and remove
 		cards.innerHTML=cards.innerHTML.slice(0,-1);
@@ -287,6 +286,7 @@ const updateCards=(val,type)=>{
 }
 
 const showdown=()=>{
+	let delay=5000; //delay before reveal
 			mode="low"; //set to default of low (later checks will set to other modes if applicable)
 
 	if(cards.innerHTML.slice(-1)=="_") //check for display cursor and remove
@@ -321,11 +321,13 @@ const showdown=()=>{
 	//showHideKeys();
 	chat.style.textAlign="center";
 	chat.innerHTML="[Showdown]";
-						
-	sleep(5000).then(() => {	
-		cards.innerHTML=`${holecard} `;
-	});
+					
+	if(scene==0 && story) //set delay to longer for final scene's reveal
+		delay=27000;
 
+	sleep(delay).then(() => {	
+			cards.innerHTML=`${holecard} `; //space added to display to allow using card in next set if needed
+	});
 }
 
 function sleep (time){
